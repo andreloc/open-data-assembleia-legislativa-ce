@@ -82,10 +82,10 @@ extrair_dados_do_mes <- function(ano, mes) {
 }
 
 # 
-# Percorre os períodos definidos do ano inicial ao ano final
+# Percorre os períodos definidos do ano inicial ao final criando um dataframe
+# com o ano, mes, parlametar e texto do pdf
 # 
-# 
-criar_tabela_nao_trados <- function(ano_inicio,ano_fim) {
+criar_tabela_nao_tratados <- function(ano_inicio,ano_fim) {
   anos    <- ano_inicio:ano_fim           # Anos disponíveis na página
   meses   <- str_pad(1:12, 2, pad = "0")  # Meses numéricos 01 - 12
   periodos <- expand.grid("mes" = meses, "ano" = anos) # cria uma tabela com todos anos e meses
@@ -94,39 +94,13 @@ criar_tabela_nao_trados <- function(ano_inicio,ano_fim) {
                        mes = character(),
                        ano = character(), 
                        parlamentar = character(), 
-                       texto_pdf = character()) 
+                       texto_pdf = character()
+                    ) 
   
   for( i in 1:nrow(periodos)) {
-    tabela_mes      <- extrair_dados_do_mes(periodos[i, "ano"], periodos[i, "mes"])
+    tabela_mes      <- extrair_dados_do_mes(periodos[i, "ano"], 
+                                            periodos[i, "mes"])
     tabela_completa <- rbind(tabela_completa, tabela_mes)
   }
   tabela_completa
 }
-
-resultado <- criar_tabela_nao_trados(2015,2019)
-
-# dados_brutos <- mapply(executar, periodo$anos, periodo$meses)
-# dados_brutos2 <- mapply(executar, periodo$anos, periodo$meses)
-
-# dados <- data.frame(
-#   ano = dados_brutos2[1,],
-#   mes = dados_brutos2[2,]
-#   
-# )
-# 
-# extrair_dados_mes <- function(ano,mes,text_bruno) {
-#   print(ano)  
-#   
-# }
-
-# converter_texto_em_tabela <- function(texto_bruno) {
-#   
-# }
-# 
-# executar(2017,12)
-
-# mapply(extrair_dados_mes, dados_brutos)
-# View(dados_brutos[1,1])
-
-
-
