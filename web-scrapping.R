@@ -32,7 +32,7 @@ carregar_pagina_por_mes <- function(ano, mes) {
 }
 
 # 
-# 
+# carrega pagina e extrai apena a lista de parlamentares da página específica
 # 
 extrair_lista_de_parlamentares <- function(html_page) {
   html_page %>%
@@ -40,11 +40,17 @@ extrair_lista_de_parlamentares <- function(html_page) {
     html_text()
 }
 
-file_names <- function(ano,mes,parlamentar) {
+# 
+# Cria o padrão de nome de arquivos que serão salvos no disco
+# 
+file_names <- function(ano, mes, parlamentar) {
   parlamentar = gsub("[/. ,]","_", parlamentar)
   paste0(pdf_cache_dir,"/",ano,"_",mes,"_",parlamentar,".pdf")
 }
 
+#
+# Baixa o arquivo pdf com os gastos do parlamentar no dado ano e mes
+# 
 download_demonstrativo_de_gastos <- function(ano, mes, parlamentar) {
   base_url  = "https://www.al.ce.gov.br/paineldecontrole/jumi_transparencia_deputados.php?act=vervdp"
   url       = paste0(base_url,"&f_ano=",ano,"&f_mes=",mes,"&f_dep=",sapply(parlamentar, URLencode)) 
@@ -58,41 +64,37 @@ download_demonstrativo_de_gastos <- function(ano, mes, parlamentar) {
   fileName
 }
 
+#
+# Extrai os dados de um determinado mes e cria um dataframe com 
+# 
 extrair_dados_do_mes <- function(ano, mes) {
     print(paste0("Extraindo: ",ano,"-",mes))
     html          <- carregar_pagina_por_mes(ano, mes)
     parlamentares <- extrair_lista_de_parlamentares(html)
     if(length(parlamentares) == 0) {
       print("Nenhum parlamentar encontrado!")
-      return(data.frame(mes = mes, 
-                  ano = ano, 
-                  parlamentar = NA,
-                  texto_pdf = NA))
+      return(data.frame(ano = ano, mes = mes, parlamentar = NA, texto_pdf = NA))
     } 
     
     files <- download_demonstrativo_de_gastos(ano, mes, parlamentares)
-    texto_bruto = sapply(files, pdf_text)
-    
-    # list(ano = ano, mes = mes, parlamentares = list(parlamentares), texto_bruto = texto_bruto)
-    parlamentares = expand.grid(mes = mes, 
-                ano = ano, 
-                parlamentar = parlamentares)
-    parlamentares$texto_pdf = texto_bruto
-    parlamentares
+    texto_pdf     = sapply(files, pdf_text, USE.NAMES = F)
+    data.frame(ano = ano, mes = mes, 
+                parlamentar = parlamentares,
+                texto_pdf = texto_pdf)
 }
 
 # 
 # Percorre os períodos definidos do ano inicial ao final criando um dataframe
 # com o ano, mes, parlametar e texto do pdf
 # 
-criar_tabela_nao_tratados <- function(ano_inicio,ano_fim) {
+extrair_tabela_completa <- function(ano_inicio, ano_fim) {
   anos    <- ano_inicio:ano_fim           # Anos disponíveis na página
   meses   <- str_pad(1:12, 2, pad = "0")  # Meses numéricos 01 - 12
   periodos <- expand.grid("mes" = meses, "ano" = anos) # cria uma tabela com todos anos e meses
   
   tabela_completa <- data.frame(
-                       mes = character(),
                        ano = character(), 
+                       mes = character(),
                        parlamentar = character(), 
                        texto_pdf = character()
                     ) 
@@ -104,3 +106,8 @@ criar_tabela_nao_tratados <- function(ano_inicio,ano_fim) {
   }
   tabela_completa
 }
+
+# resultado = extrair_tabela_completa(2015, 2019)
+# 
+# save(resultado,file="data.Rda")
+
