@@ -44,3 +44,5 @@ packrat/lib*/
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+
+data/temp

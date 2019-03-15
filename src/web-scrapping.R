@@ -13,7 +13,7 @@ library(httr)
 library(urltools)
 library(stringr)
 
-pdf_cache_dir <- "cache/pdf_files"
+pdf_cache_dir <- "data/temp/pdf_files"
 
 # como obter esses dados? 
 # Na pagina de desempenho parlametar, inspecionar o html
