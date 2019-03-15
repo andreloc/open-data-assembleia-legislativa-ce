@@ -1,6 +1,6 @@
 source("web-scrapping.R")
 
-# resultado <- criar_tabela_nao_tratados(2015:2019)
+resultado <- criar_tabela_nao_tratados(2015, 2019)
 
 limpar_dados <- function(texto) {
   ## separa em linhas
