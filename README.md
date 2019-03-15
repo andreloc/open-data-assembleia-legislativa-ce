@@ -18,11 +18,13 @@ Didaticamente, esse projeto é divido em três principais partes:
 
 ### Open Data Day Fortaleza
 
-Esse projeto projeto será apresentado nas oficinas da palestra de Dados Abertos que será ministrado por: 
+Esse projeto projeto será apresentado nas oficinas do encontro Open Data Day realizado em Fortaleza/CE no dia 23/03/2019. As oficinas serão dividias em três partes e ministradas por: 
 
  * [André Campos](https://www.linkedin.com/in/andreloc/)  (Raspagem de Dados)
  * [Riverson Rios](http://www.ica.ufc.br/index.php?nome=Jos%E9%20Riverson%20Ara%FAjo%20Cysne%20Rios&var=prof) (Limpeza de Dados)
  * [Emanuele Santos](https://www.linkedin.com/in/emanueles/) (Visualização de Dados)
+ 
+ Maiores informações em: TODO
 
 ### Instalação e dependências
 
