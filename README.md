@@ -10,7 +10,7 @@ Dessa forma o projeto tem como principais objetivo:
  * Tornar pública e facilmente acessível uma análise visual de como estão sendo direcionados os gastos públicos da assembleia legislativa cearense;
  * Ser uma fonte didática de guiar pessoas interessas nessas ações e motivar a comunidade Open Data a contribuir com diversos outros projetos;
 
-Didaticamente, esse projeto é divido em três principais partes: 
+Para fins didáticos, esse projeto é divido em três principais partes: 
 
  1. Raspagem dos dados (Web scraping)
  2. Limpeza dos dados 
