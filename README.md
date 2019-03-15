@@ -14,7 +14,7 @@ Para fins didáticos, esse projeto é divido em três principais partes:
 
  1. Raspagem dos dados (Web scraping)
  2. Limpeza dos dados 
- 3. Visualização de dados
+ 3. Visualização de dados 
 
 ### Open Data Day Fortaleza
 
