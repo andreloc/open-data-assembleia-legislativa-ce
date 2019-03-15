@@ -5,12 +5,9 @@
 # Session Data files
 .RData
 
-<<<<<<< HEAD
 # User-specific files
 .Ruserdata
 
-=======
->>>>>>> e34fbc3d6a26c2c74d8bd1ef78c95f905ff7a373
 # Example code in package build process
 *-Ex.R
 
@@ -38,14 +35,12 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
-<<<<<<< HEAD
 # MAC OS index
 .DS_Store
 
 # packrat
 packrat/lib*/
 .Rproj.user
-=======
+
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
->>>>>>> e34fbc3d6a26c2c74d8bd1ef78c95f905ff7a373
