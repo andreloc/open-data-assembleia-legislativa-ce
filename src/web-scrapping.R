@@ -2,7 +2,7 @@
 ## O objetivo desse arquivo e' realizar webscrapping da lista de arquivos de verba
 ## de desempenho parlamentar. A idéia é obter os arquivos e ler o conteúdo dos PDFs
 ## https://www.al.ce.gov.br/index.php/transparencia/verba-de-desempenho-parlamentar
-## 
+##  
 ## Bibliotecas
 ## Suporte a leitura de pdfs e conversão para texto
 library(pdftools)  ## Necessária a instalação de ferramental no sistema operacional
