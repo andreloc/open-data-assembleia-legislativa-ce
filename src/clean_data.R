@@ -1,3 +1,5 @@
+library(dplyr)
+
 remove_cabecalho_rodape <- function(texto) {
   ## separa em linhas
   texto <- sapply(texto, str_split, "\n")
