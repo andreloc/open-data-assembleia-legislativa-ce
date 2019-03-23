@@ -1,0 +1,85 @@
+---
+title: "Raspagem de Dados com R"
+subtitle: "*Data Scraping with R*" 
+author: "André Campos [&lt;andreloc@gmail.com&gt;](mailto:andreloc@gmail.com)"
+date: "\\#*Open Data Day Fortaleza* — 23 de Março de 2019"
+output:
+  revealjs::revealjs_presentation:
+    theme: black
+    transition: none
+    self_contained: true
+    css: slides.css
+  beamer_presentation:
+    toc: false
+    incremental: false
+---
+
+[comment]: <> (“default”, “dark”, “simple”, “sky”, “beige”, “serif”, “solarized”, “blood”, “moon”, “night”, “black”, “league”, “white”)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Contextualização 
+ 
+## Objetivo
+Realizar *data scraping* (raspagem de dados) da página da assembléia legislativa do do Ceará e extrair as informações de registro de gastos dos nosso queridos parlamentares!  
+
+## Como aprender e contribuir?
+
+- Cadastro no Github:  https://github.com
+- Download:            https://desktop.github.com/ 
+- Acesse:              https://github.com/andreloc/open-data-assembleia-legislativa-ce
+
+## O que é web scraping?
+
+  - Uma forma de extrair dados massivamente de páginas web. 
+   
+  - Infelizmente uma das piores alternativas para se obter dados.
+
+## Evite essa opção!
+   
+- Lento
+- Pequenas mudanças na fonte instabilizam o *scraper*
+- Dificuldade de extração dos dados 
+- Pode impactar o site fonte
+
+## Antes de criar um scrapper 
+
+Alternativas: 
+
+  - Cópia de dados em formatos amigáveis: CSV, JSON, XML
+  - APIs - Interfaces de acesso programadas para esse propósito
+  - Conexão direta com a base de dados 
+
+## Por que realizar *Scraping*? 
+ 
+  - Talvez seja a única alternativa
+  - Alguns dados combinados seriam complicados de serem obtidos com outro método
+
+## Habilidades desejadas
+ 
+  - DOM (HTML) 
+  - Regular Expressions 
+  - Scripting 
+  
+## Como estruturar? 
+ 
+  - Estudar site
+  - Planejar script 
+  - Pesquisar tecnologias
+  - Extração dos dados 
+  - Limpeza dos dados
+
+# Mão na massa! 
+
+## Criando o plano de scraping
+  
+  - Acessar a página das verbas parlamentares [Assembléia Legislativa CE](https://www.al.ce.gov.br/index.php/transparencia/verba-de-desempenho-parlamentar)
+
+  - Traçando o plano de scrapping 
+  
+  - Inspecionando elementos 
+
+
+
