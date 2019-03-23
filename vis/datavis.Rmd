@@ -13,8 +13,16 @@ Tente executar esse bloco usando o botão *Run* dentro do bloco ou colocando seu
 
 ```{r setup}
 install.packages("tidyverse")
-library(tidyverse)
+install.packages("plotly")
 ```
+
+Loading libraries:
+
+```{r load}
+library(tidyverse)
+library(plotly)
+```
+
 
 Adicione um novo bloco de código clicando no botão *Insert Chunk*  na barra de ferramentas ou pressionando *Ctrl+Alt+I*.
 
@@ -112,10 +120,16 @@ ggplot(data = dados) +
   geom_bar(mapping = aes(x=gasto)) +
     coord_flip()
 ```
-Soma de valores de gastos:
+Parlamentares com os piores gastos:
 ```{r}
-ggplot(data = dados, aes(x=reorder(gasto,-valor), y=valor)) +
-  geom_bar(stat="identity",na.rm = TRUE) +
+piores <- dados %>%
+    group_by(parlamentar) %>%
+    summarize(gastos=sum(valor)) %>%
+    filter(rank(desc(gastos))< 10) %>%
+    arrange(desc(gastos))
+
+ggplot(data = piores, aes(x=reorder(parlamentar,gastos),y=gastos)) +
+  geom_bar(stat="identity") +
     coord_flip()
 ```
 
@@ -150,4 +164,17 @@ p <- ggplot(data = dados) +
   geom_point(mapping = aes(x=ano, y=valor)) 
 ggplotly(p)
 ```
+```{r}
+piores <- dados %>%
+    group_by(parlamentar) %>%
+    summarize(gastos=sum(valor)) %>%
+    filter(rank(desc(gastos))< 10) %>%
+    arrange(desc(gastos))
 
+p2 <- ggplot(data = piores, aes(x=reorder(parlamentar,gastos),y=gastos)) +
+  geom_bar(stat="identity") +
+    coord_flip() +
+    theme(legend.position = "none")
+
+ggplotly(p2)
+```
