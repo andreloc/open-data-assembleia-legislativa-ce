@@ -7,8 +7,9 @@ Infelizmente os dados não apropriadamente disponibilizados em formatos amigáve
 
 Dessa forma o projeto tem como principais objetivo: 
 
- * Tornar pública e facilmente acessível uma análise visual de como estão sendo direcionados os gastos públicos da assembleia legislativa cearense;
- * Ser uma fonte didática de guiar pessoas interessas nessas ações e motivar a comunidade Open Data a contribuir com diversos outros projetos;
+ * Tornar pública e facilmente acessível uma análise visual de como estão sendo direcionados os gastos públicos da assembleia legislativa cearense
+ * Servir como modelo e fonte de aprendizado para pessoas com interesse em explorar mais esse tipo de informação
+ * Motivar a comunidade Open Data a contribuir com diversos outros projetos
 
 Para fins didáticos, esse projeto é divido em três principais partes: 
 
