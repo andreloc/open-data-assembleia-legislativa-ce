@@ -20,61 +20,66 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Objetivo
-
-Realizar um web scraping da página da assembléia legislativa do do Ceará e extrair as informações de registro de gastos dos nosso queridos parlamentares!  
+# Contextualização 
+ 
+## Objetivo
+Realizar *data scraping* (raspagem de dados) da página da assembléia legislativa do do Ceará e extrair as informações de registro de gastos dos nosso queridos parlamentares!  
 
 ## Como aprender e contribuir?
 
-- Códigos:  https://github.com
-- Download: https://desktop.github.com/ 
-- Acesse:   https://github.com/andreloc/open-data-assembleia-legislativa-ce
+- Cadastro no Github:  https://github.com
+- Download:            https://desktop.github.com/ 
+- Acesse:              https://github.com/andreloc/open-data-assembleia-legislativa-ce
 
-## O que é web scraping
+## O que é web scraping?
 
   - Uma forma de extrair dados massivamente de páginas web. 
    
   - Infelizmente uma das piores alternativas para se obter dados.
 
-## Problemas Comuns
+## Evite essa opção!
    
-- Normalmente é lento
-- Pequenas mudanças na página quebram tudo 
+- Lento
+- Pequenas mudanças na fonte instabilizam o *scraper*
 - Dificuldade de extração dos dados 
-- Pode impactar a disponibilidade do site
+- Pode impactar o site fonte
 
 ## Antes de criar um scrapper 
 
 Alternativas: 
 
-  - Cópia de dados em formatos amigáveis: CSV, JSON, XML etc 
-  - APIs
-  - Acesso direto ao banco de dados 
+  - Cópia de dados em formatos amigáveis: CSV, JSON, XML
+  - APIs - Interfaces de acesso programadas para esse propósito
+  - Conexão direta com a base de dados 
 
-## Por que realizar Scraping
+## Por que realizar *Scraping*? 
  
   - Talvez seja a única alternativa
   - Alguns dados combinados seriam complicados de serem obtidos com outro método
-
 
 ## Habilidades desejadas
  
   - DOM (HTML) 
   - Regular Expressions 
   - Scripting 
-
-# Mãos à massa
-
-## Preparando o ambiente
-  - R
-  - RStudio 
-      
-## Dependências
-
+  
+## Como estruturar? 
  
+  - Estudar site
+  - Planejar script 
+  - Pesquisar tecnologias
+  - Extração dos dados 
+  - Limpeza dos dados
+
+# Mão na massa! 
 
 ## Criando o plano de scraping
   
-  - Acessar a página das verbas parlamentare
-  (Assembléia Legislativa CE)[https://www.al.ce.gov.br/index.php/transparencia/verba-de-desempenho-parlamentar]
-  - 
+  - Acessar a página das verbas parlamentares [Assembléia Legislativa CE](https://www.al.ce.gov.br/index.php/transparencia/verba-de-desempenho-parlamentar)
+
+  - Traçando o plano de scrapping 
+  
+  - Inspecionando elementos 
+
+
+
