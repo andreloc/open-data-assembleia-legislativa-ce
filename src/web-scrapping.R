@@ -127,6 +127,7 @@ extrair_tabela_completa <- function(ano_inicio, ano_fim) {
                                             periodos[i, "mes"])
     tabela_completa <- rbind(tabela_completa, tabela_mes)
   }
+  
   tabela_completa
 }
 
