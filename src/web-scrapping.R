@@ -12,7 +12,7 @@ library(httr)
 library(urltools)
 library(stringr)
 
-pdf_cache_dir <- "data/temp/pdf_files"
+pdf_cache_dir <- "data/temp"
 
 # como obter esses dados? 
 # Na pagina de desempenho parlametar, inspecionar o html
@@ -74,7 +74,7 @@ download_demonstrativo_de_gastos <- function(ano, mes, parlamentar) {
 # Extrai os dados de um determinado mes e cria um dataframe com 
 # 
 extrair_dados_do_mes <- function(ano, mes) {
-  print(paste0("Extraindo: ",ano,"-",mes))
+  print(paste0("Extraindo: ", ano, "-", mes))
   html          <- carregar_pagina_por_mes(ano, mes)
   parlamentares <- extrair_lista_de_parlamentares(html)
   if(length(parlamentares) == 0) {
@@ -84,7 +84,8 @@ extrair_dados_do_mes <- function(ano, mes) {
   
   files <- download_demonstrativo_de_gastos(ano, mes, parlamentares)
   texto_pdf     = sapply(files, pdf_text, USE.NAMES = F)
-  data.frame(ano = ano, mes = mes, 
+  data.frame(ano = ano, 
+             mes = mes, 
              parlamentar = parlamentares,
              texto_pdf = texto_pdf)
 }
@@ -103,7 +104,7 @@ extrair_tabela_completa <- function(ano_inicio, ano_fim) {
     mes = character(),
     parlamentar = character(), 
     texto_pdf = character()
-  ) 
+  )
   
   for( i in 1:nrow(periodos)) {
     tabela_mes      <- extrair_dados_do_mes(periodos[i, "ano"], 
