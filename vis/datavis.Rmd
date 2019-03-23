@@ -145,6 +145,27 @@ Contagem de itens de gasto por valor (histograma):
 ggplot(data = dados) +
   geom_histogram(mapping = aes(x=valor), color="blue", fill="white",binwidth=1000)
 ```
+### Gráfico de Linhas
+
+Queremos plotar a trajetória de gastos por ano para cada parlamentar
+
+```{r}
+por_ano <- dados %>%
+    group_by(parlamentar,ano) %>%
+    summarize(gastos=sum(valor))
+ggplot(data = por_ano, mapping = aes(x=ano, y=gastos)) +
+  geom_line(aes(group=parlamentar))
+```
+Plotando os 10 parlamentares mais gastadores por ano:
+```{r}
+por_ano2 <- dados %>%
+    group_by(ano,parlamentar) %>%
+    summarize(gastos=sum(valor)) %>%
+    filter(rank(desc(gastos))< 10 & ano<2019)
+por_ano2
+ggplot(data = por_ano2, mapping = aes(x=ano, y=gastos, color=parlamentar)) +
+  geom_point()
+```
 
 Filtrando dados:
 ```{r}
@@ -177,4 +198,14 @@ p2 <- ggplot(data = piores, aes(x=reorder(parlamentar,gastos),y=gastos)) +
     theme(legend.position = "none")
 
 ggplotly(p2)
+```
+```{r}
+por_ano2 <- dados %>%
+    group_by(ano,parlamentar) %>%
+    summarize(gastos=sum(valor)) %>%
+    filter(rank(desc(gastos))< 10 & ano<2019)
+por_ano2
+p3 <- ggplot(data = por_ano2, mapping = aes(x=ano, y=gastos, color=parlamentar)) +
+  geom_point()
+ggplotly(p3)
 ```
