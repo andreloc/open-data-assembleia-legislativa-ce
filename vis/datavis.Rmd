@@ -1,0 +1,180 @@
+---
+title: "Visualização de Dados usando R"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook: default
+---
+
+Isto é um Notebook [R Markdown](http://rmarkdown.rstudio.com). Ele permite usarmos um único documento para código, visualização e documentação. Assim fica mais fácil gerenciarmos as análises que fizermos. Sempre que você executar algum código R dentro do notebook, os resultados aparecem logo abaixo do código. 
+
+Tente executar esse bloco usando o botão *Run* dentro do bloco ou colocando seu cursor dentro dele e pressionando *Ctrl+Shift+Enter*. 
+
+```{r setup}
+install.packages("tidyverse")
+install.packages("plotly")
+```
+
+Loading libraries:
+
+```{r load}
+library(tidyverse)
+library(plotly)
+```
+
+
+Adicione um novo bloco de código clicando no botão *Insert Chunk*  na barra de ferramentas ou pressionando *Ctrl+Alt+I*.
+
+Quando você salva o notebook, um arquivo HTML contendo o código e os resultados será salvo juntamente com ele (clique no botão *Preview* ou pressione *Ctrl+Shift+K* para pré-visualizar o arquivo HTML).
+
+A pré-visualização mostra uma versão formatada em HTML do conteúdo presente no editor. 
+
+Links úteis:  
+
+* [The R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+* [The R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+* [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf)
+
+## Leitura dos dados
+
+Antes de visualizarmos qualquer coisa, precisamos colocar nossos dados dentro do R. Iremos usar a função ```read_csv```.
+```{r}
+dados <- read_csv(file="resultado.csv") 
+```
+
+Vamos dar uma olhada nos nossos dados:
+
+```{r}
+head(dados)
+str(dados)
+```
+
+Dentre as variáveis no nosso arquivo de dados, temos:  
+
+* **linha**: apenas um número identificando a linha
+* **ano**: ano em que foi realizado o gasto
+* **mes**: mês em que foi realizado o gasto
+* **parlamentar**: nome do parlamentar
+* **gasto**: Tipo do gasto
+* **valor**: Valor do gasto em reais
+
+## Plotando gráficos com o ggplot2
+
+Iremos criar nossas visualizações usando a biblioteca **ggplot2**, que já está incluída no pacote **tidyverse**.
+
+### Gráfico de Pontos
+
+O gráfico abaixo irá colocar ano no eixo-x e valor no eixo-y.
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x=ano, y=valor)) 
+```
+
+Com o ggplot2, você começa um gráfico com a função `ggplot()`. Ela cria um sistema de coordenadas ao qual você pode adicionar camadas. O primeiro argumento de `ggplot()` é o conjunto de dados a ser usado no gráfico. Assim `ggplot(data = dados)` cria um gráfico vazio.
+
+#### Exercício
+
+> Crie um bloco de código e nele chame a função `ggplot(data = dados)`
+
+Nós completamos o nosso gráfico adicionando-se uma ou mais camadas à `ggplot()`.
+
+A função `geom_point()` adiciona uma camada de pontos ao gráfico, criando um scatterplot. **ggplot2** vem com várias funções geom e cada uma adiciona um tipo diferente de camada a um gráfico. Veremos algumas durante essa oficina.
+
+Cada função geom em **ggplot2** recebe um argumento `mapping`. Ele define como as variáveis  no seu conjunto de dados são mapeadas às propriedades visuais. O argumento `mapping` está sempre pareado com `aes()`, e os argumentos `x` e `y` de `aes()` especificam quais variáveis a serem mapeadas aos eixos x e y do gráfico. **ggplot2** procura pelas variáveis mapeadas no argumento `data`, nesse caso, `dados`.
+
+
+#### Mapeamentos Estéticos
+
+Podemos mapear outras variáveis a outras propriedades do gráfico. Por exemplo, podemos mapear as cores dos pontos para a variável gasto:
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x=ano, y=valor, color=gasto)) +
+    guides(col = guide_legend(direction="vertical", nrow=22))
+```
+
+Como existem muitos tipos de gastos, esta visualização não é muito útil, pois não conseguimos diferenciar as cores.
+
+Também podemos configurar as propriedades estéticas da geometria manualmente, por exemplo, podemos tornar todos os pontos do nosso gráfico na cor azul e semi-transparentes:
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x=ano, y=valor), color="blue", alpha=0.3) 
+```
+#### Facetas
+Podemos dividir nossos gráficos em facetas, as quais são subgráficos que mostram um subconjunto dos dados.
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x=ano, y=valor, color=gasto), alpha=0.3) +
+    facet_wrap(~ gasto, nrow=5) +
+    theme(legend.position = "none")
+```
+### Gráfico de Barras
+
+Contagem de itens de gasto por ano:
+```{r}
+ggplot(data = dados) +
+  geom_bar(mapping = aes(x=gasto)) +
+    coord_flip()
+```
+Parlamentares com os piores gastos:
+```{r}
+piores <- dados %>%
+    group_by(parlamentar) %>%
+    summarize(gastos=sum(valor)) %>%
+    filter(rank(desc(gastos))< 10) %>%
+    arrange(desc(gastos))
+
+ggplot(data = piores, aes(x=reorder(parlamentar,gastos),y=gastos)) +
+  geom_bar(stat="identity") +
+    coord_flip()
+```
+
+Soma de valores de gastos por parlamentar (top 10):
+```{r}
+ggplot(data = dados, aes(x=reorder(gasto,-valor), y=valor)) +
+  geom_bar(stat="identity",na.rm = TRUE) +
+    coord_flip()
+```
+
+Contagem de itens de gasto por valor (histograma):
+```{r}
+ggplot(data = dados) +
+  geom_histogram(mapping = aes(x=valor), color="blue", fill="white",binwidth=1000)
+```
+
+Filtrando dados:
+```{r}
+adm1 <- filter(dados, valor < 0)
+adm1 %>%
+    count(parlamentar)
+```
+
+## Gráficos interativos
+```{r}
+install.packages("plotly") # if you haven't installed the package
+library(plotly)
+```
+
+```{r}
+p <- ggplot(data = dados) +
+  geom_point(mapping = aes(x=ano, y=valor)) 
+ggplotly(p)
+```
+```{r}
+piores <- dados %>%
+    group_by(parlamentar) %>%
+    summarize(gastos=sum(valor)) %>%
+    filter(rank(desc(gastos))< 10) %>%
+    arrange(desc(gastos))
+
+p2 <- ggplot(data = piores, aes(x=reorder(parlamentar,gastos),y=gastos)) +
+  geom_bar(stat="identity") +
+    coord_flip() +
+    theme(legend.position = "none")
+
+ggplotly(p2)
+```
